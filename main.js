@@ -2,11 +2,11 @@ import './style.css'
 
 
 // import { firestore as FS } from 'firebase/app'
-// import firebase from 'firebase/app'
-// import 'firebase/firestore'
+import firebase from 'firebase/app'
+import 'firebase/firestore'
 // Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
+// import { initializeApp } from "firebase/app";
+// import { getFirestore } from "firebase/firestore";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -23,11 +23,12 @@ const firebaseConfig = {
 // Initialize Firebase
 
 // if (!firebaseConfig.apps.length) {
-const app = initializeApp(firebaseConfig);
+// const app = initializeApp(firebaseConfig);
   // firebaseConfig.initializeApp(firebaseConfig);
 // }
-// const firestore = firebase.firestore();
-const firestore = getFirestore();
+const app = firebase.initializeApp(firebaseConfig);
+const firestore = firebase.firestore();
+// const firestore = getFirestore(app);
 // const firestore = FS();
 
 
@@ -145,6 +146,7 @@ callButton.onclick = async () => {
 answerButton.onclick = async () => {
   const callId = callInput.value;
   const callDoc = firestore.collection('calls').doc(callId);
+  const offerCandidates = callDoc.collection('offerCandidates');
   const answerCandidates = callDoc.collection('answerCandidates');
 
   peerConnection.onicecandidate = event => {
